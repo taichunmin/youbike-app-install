@@ -147,27 +147,29 @@
         page: '',
       },
       async mounted() {
-        await this.init()
-      },
-      computed: {
-        browser() {
-          const parser = new UAParser()
-          const browser = parser.getResult()
-          delete browser.ua
-          return browser
-        },
+        this.init()
       },
       methods: {
         async init() {
           this.setIcon('apple-touch-icon', this.icon)
           this.setIcon('shortcut icon', this.icon)
           this.setLabel(this.label)
-          this.page = _.toLower(this.browser.os.name)
-          if (this.page === 'android') {
+          if (this.isAndroid()) {
+            this.page = 'android'
             this.setLink('intent://ti/p/@youbike#Intent;scheme=line;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=jp.naver.line.android;end')
             return
           }
+          this.page = 'ios'
           this.setLink(this.link)
+        },
+        matchAgent(regexp) {
+          return navigator.userAgent.match(regexp)
+        },
+        isAndroid() {
+          return this.matchAgent(/Android/i)
+        },
+        isIOS() {
+          return this.matchAgent(/iPhone/i) || this.matchAgent(/iPad/i) || this.matchAgent(/iPod/i)
         },
         setIcon(rel, icon) {
           const dom = document.querySelector(`link[rel='${rel}']`) || document.createElement('link')
