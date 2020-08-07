@@ -13,6 +13,10 @@
 <style>
   @charset "UTF-8";
 
+  [v-cloak] {
+    display: none;
+  }
+
   *,
   *:before,
   *:after {
@@ -100,7 +104,7 @@
 </style>
 
 <body>
-  <div id="app">
+  <div id="app" v-cloak>
     <div class="container">
       <h1>把捷徑加到主畫面</h1>
       <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/joinhome.png" class="img-hero">
@@ -143,7 +147,7 @@
         page: '',
       },
       async mounted() {
-        this.init()
+        await this.init()
       },
       computed: {
         browser() {
@@ -160,7 +164,7 @@
           this.setLabel(this.label)
           this.page = _.toLower(this.browser.os.name)
           if (this.page === 'android') {
-            this.setLink('intent://ti/p/@youbike#Intent;scheme=line;action=an')
+            this.setLink('intent://ti/p/@youbike#Intent;scheme=line;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=jp.naver.line.android;end')
             return
           }
           this.setLink(this.link)
