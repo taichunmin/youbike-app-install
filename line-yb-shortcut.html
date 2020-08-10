@@ -6,7 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css">
   <title>建立 YB 官方 Line 捷徑</title>
 </head>
 
@@ -104,39 +103,34 @@
 </style>
 
 <body>
-  <div id="app" v-cloak>
-    <div class="container">
-      <h1>把捷徑加到主畫面</h1>
-      <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/joinhome.png" class="img-hero">
-      <div class="box-step">
-        <h3>新增步驟：</h3>
-        <ul v-if="page==='ios'">
-          <li>1. 請使用 IOS 的 Safari 瀏覽器開啟</li>
-          <li>2. 按一下下方工作列的「分享」按鈕
-            <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/icon-share.png" alt="">
-          </li>
-          <li>3. 按一下「加入主畫面」
-            <i class="far fa-plus-square"></i>
-          </li>
-        </ul>
-        <ul v-else="page==='android'">
-          <li>1. 請使用 Android 的 Chrome 瀏覽器開啟</li>
-          <li>2. 按一下瀏覽器右上角的「更多」圖示
-            <i class="fas fa-ellipsis-v"></i>
-          </li>
-          <li>3. 按一下「加到主畫面」</li>
-        </ul>
-      </div>
+  <div id="app" class="container" v-cloak>
+    <h1>把捷徑加到主畫面</h1>
+    <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/joinhome.png" class="img-hero">
+    <div class="box-step">
+      <h3>新增步驟：</h3>
+      <ul v-if="page==='ios'">
+        <li>1. 請使用 IOS 的 Safari 瀏覽器開啟</li>
+        <li>2. 按一下下方工作列的「分享」按鈕
+          <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/icon-share.png" alt="">
+        </li>
+        <li>3. 按一下「加入主畫面」
+          <i class="far fa-plus-square"></i>
+        </li>
+      </ul>
+      <ul v-else="page==='android'">
+        <li>1. 請使用 Android 的 Chrome 瀏覽器開啟</li>
+        <li>2. 按一下瀏覽器右上角的「更多」圖示
+          <i class="fas fa-ellipsis-v"></i>
+        </li>
+        <li>3. 按一下「加到主畫面」</li>
+      </ul>
     </div>
   </div>
 
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
   <script src="https://cdn.jsdelivr.net/npm/lodash@4/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js"></script>
-  <script src="https://use.fontawesome.com/releases/v5.0.0/js/all.js"></script>
-  <script src="https://use.fontawesome.com/releases/v5.0.0/js/fontawesome.js"></script>
-  <script src="https://use.fontawesome.com/releases/v5.0.0/js/regular.js"></script>
-  <script src="https://use.fontawesome.com/releases/v5.0.0/js/solid.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
   <script>
     const vm = new Vue({ // eslint-disable-line
       el: '#app',
@@ -144,41 +138,31 @@
         icon: 'https://obs.line-scdn.net/0hpLoAjoW-L2NSOAYpW1xQNHNlJAFhWjFocF5nAXI4d1Z4AGtbPlgyVnI_IwN5CDwzbg1lBRk4eQZ_DmEwaxthV3AwcgB8Cg/f256x256',
         label: 'YouBike 微笑單車',
         link: 'https://line.me/R/ti/p/@youbike',
-        page: '',
+        page: 'ios',
       },
       async mounted() {
         this.init()
       },
       methods: {
         async init() {
-          this.setIcon('apple-touch-icon', this.icon)
-          this.setIcon('shortcut icon', this.icon)
-          this.setLabel(this.label)
+          document.title = this.label
+          this.setIcon('apple-touch-icon')
+          this.setIcon('shortcut icon')
           if (this.isAndroid()) {
             this.page = 'android'
             this.setLink('intent://ti/p/@youbike#Intent;scheme=line;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=jp.naver.line.android;end')
             return
           }
-          this.page = 'ios'
           this.setLink(this.link)
         },
-        matchAgent(regexp) {
-          return navigator.userAgent.match(regexp)
-        },
         isAndroid() {
-          return this.matchAgent(/Android/i)
+          return navigator.userAgent.match(/Android/i)
         },
-        isIOS() {
-          return this.matchAgent(/iPhone/i) || this.matchAgent(/iPad/i) || this.matchAgent(/iPod/i)
-        },
-        setIcon(rel, icon) {
+        setIcon(rel) {
           const dom = document.querySelector(`link[rel='${rel}']`) || document.createElement('link')
           dom.rel = rel
-          dom.href = icon
+          dom.href = this.icon
           document.getElementsByTagName('head')[0].appendChild(dom)
-        },
-        setLabel(label) {
-          document.title = label
         },
         setLink(link) {
           const url = new URL('line-yb-shortcut-redirect.html', location)
