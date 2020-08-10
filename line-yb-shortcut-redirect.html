@@ -6,29 +6,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="format-detection" content="telephone=no">
-  <link rel="stylesheet" href="https://static.line-scdn.net/line_urlscheme/edge/css/line_urlscheme.css">
-  <script src="https://static.line-scdn.net/line_urlscheme/edge/js/lc.line.scheme.js"></script>
   <title>跳轉頁</title>
 </head>
 
+<style>
+  @charset "UTF-8";
+
+  *,
+  *:before,
+  *:after {
+    font-family: "微軟正黑體";
+    position: relative;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100vh;
+    border-radius: 0;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: start;
+    align-items: flex-start;
+    background-color: #ffc300;
+  }
+
+  .container {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    margin: 20px 0;
+  }
+
+  .img-hero {
+    width: 50%;
+    height: 50%;
+    border-radius: 0;
+    max-width: 720px;
+    margin-top: 10px;
+  }
+
+  button {
+    margin-top: 25px;
+    width: 85%;
+    height: 44px;
+    border-radius: 8px;
+    border: 2px solid #fff;
+    background: rgba(255, 255, 255, 0);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+  }
+
+  button:hover,
+  button:focus {
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+    background: white;
+  }
+</style>
+
 <body class="ExOsMac ExLang_en">
-  <div class="LyWrap">
-    <div class="LyContents" role="main">
-      <div class="MdCMN01ImgSet">
-        <div class="mdCMN01Inner">
-          <div class="mdCMN01Img"><img
-              src="https://obs.line-scdn.net/0hpLoAjoW-L2NSOAYpW1xQNHNlJAFhWjFocF5nAXI4d1Z4AGtbPlgyVnI_IwN5CDwzbg1lBRk4eQZ_DmEwaxthV3AwcgB8Cg/f256x256"
-              alt="LINE" width="84" height="84">
-          </div>
-          <p class="mdCMN01Desc">YouBike 微笑單車</p>
-          <div class="mdCMN01BtnSet">
-            <div class="mdCMN01Btn"><a href="line://ti/p/@youbike" class="MdBtn02P01" id="jsLaunchApp">
-                在「LINE」中打開此網頁
-              </a></div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="container">
+    <h1>請在 LINE 中打開此網頁</h1>
+    <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/people-03.png" alt="" class="img-hero">
+    <button onclick="location.href='line://ti/p/@youbike'">前往「LINE」打開</button>
   </div>
 
   <script>
