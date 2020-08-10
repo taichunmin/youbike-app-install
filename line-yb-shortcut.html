@@ -6,7 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
-  <title>建立 YB 官方 Line 捷徑</title>
+  <link rel="shortcut icon"
+    href="https://obs.line-scdn.net/0hpLoAjoW-L2NSOAYpW1xQNHNlJAFhWjFocF5nAXI4d1Z4AGtbPlgyVnI_IwN5CDwzbg1lBRk4eQZ_DmEwaxthV3AwcgB8Cg/f256x256">
+  <link rel="apple-touch-icon"
+    href="https://obs.line-scdn.net/0hpLoAjoW-L2NSOAYpW1xQNHNlJAFhWjFocF5nAXI4d1Z4AGtbPlgyVnI_IwN5CDwzbg1lBRk4eQZ_DmEwaxthV3AwcgB8Cg/f256x256">
+  <title>YouBike 微笑單車</title>
 </head>
 
 <style>
@@ -135,9 +139,6 @@
     const vm = new Vue({ // eslint-disable-line
       el: '#app',
       data: {
-        icon: 'https://obs.line-scdn.net/0hpLoAjoW-L2NSOAYpW1xQNHNlJAFhWjFocF5nAXI4d1Z4AGtbPlgyVnI_IwN5CDwzbg1lBRk4eQZ_DmEwaxthV3AwcgB8Cg/f256x256',
-        label: 'YouBike 微笑單車',
-        link: 'https://line.me/R/ti/p/@youbike',
         page: 'ios',
       },
       async mounted() {
@@ -145,24 +146,15 @@
       },
       methods: {
         async init() {
-          document.title = this.label
-          this.setIcon('apple-touch-icon')
-          this.setIcon('shortcut icon')
           if (this.isAndroid()) {
             this.page = 'android'
             this.setLink('intent://ti/p/@youbike#Intent;scheme=line;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=jp.naver.line.android;end')
             return
           }
-          this.setLink(this.link)
+          this.setLink('https://line.me/R/ti/p/@youbike')
         },
         isAndroid() {
           return navigator.userAgent.match(/Android/i)
-        },
-        setIcon(rel) {
-          const dom = document.querySelector(`link[rel='${rel}']`) || document.createElement('link')
-          dom.rel = rel
-          dom.href = this.icon
-          document.getElementsByTagName('head')[0].appendChild(dom)
         },
         setLink(link) {
           const url = new URL('line-yb-shortcut-redirect.html', location)
