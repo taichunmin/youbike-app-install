@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
   <link rel="shortcut icon"
     href="https://obs.line-scdn.net/0hpLoAjoW-L2NSOAYpW1xQNHNlJAFhWjFocF5nAXI4d1Z4AGtbPlgyVnI_IwN5CDwzbg1lBRk4eQZ_DmEwaxthV3AwcgB8Cg/f256x256">
   <link rel="apple-touch-icon"
@@ -14,16 +14,10 @@
 </head>
 
 <style>
-  @charset "UTF-8";
-
-  [v-cloak] {
-    display: none !important;
-  }
-
   *,
   *:before,
   *:after {
-    font-family: "微軟正黑體";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Roboto, Arial, "PingFang TC", "Microsoft JhengHei", "微軟正黑", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     position: relative;
     outline: none;
     margin: 0;
@@ -107,21 +101,22 @@
 </style>
 
 <body>
-  <div id="app" class="container" v-cloak>
+  <div class="container">
     <h1>把捷徑加到主畫面</h1>
-    <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/joinhome.png" class="img-hero">
-    <div class="box-step">
+    <img src="https://gcs-youbike2-linebot.taichunmin.idv.tw/theme1/shortcut/hero-shortcut.png?t=2020081111"
+      class="img-hero">
+    <div id="step" class="box-step" style="display: none;">
       <h3>新增步驟：</h3>
-      <ul v-if="page==='ios'">
+      <ul id="ios" style="display: none;">
         <li>1. 請使用 IOS 的 Safari 瀏覽器開啟</li>
         <li>2. 按一下下方工作列的「分享」按鈕
-          <img src="http://tyda.azurewebsites.net/_test_lineYB/CB/icon-share.png" alt="">
+          <img src="https://gcs-youbike2-linebot.taichunmin.idv.tw/theme1/shortcut/icon-share-ios.png?t=2020081111">
         </li>
         <li>3. 按一下「加入主畫面」
           <i class="far fa-plus-square"></i>
         </li>
       </ul>
-      <ul v-else="page==='android'">
+      <ul id="android" style="display: none;">
         <li>1. 請使用 Android 的 Chrome 瀏覽器開啟</li>
         <li>2. 按一下瀏覽器右上角的「更多」圖示
           <i class="fas fa-ellipsis-v"></i>
@@ -131,38 +126,17 @@
     </div>
   </div>
 
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
-  <script src="https://cdn.jsdelivr.net/npm/lodash@4/lodash.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/ua-parser-js@0/dist/ua-parser.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/js/all.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/js/all.min.js"></script>
   <script>
-    const vm = new Vue({ // eslint-disable-line
-      el: '#app',
-      data: {
-        page: 'ios',
-      },
-      async mounted() {
-        this.init()
-      },
-      methods: {
-        async init() {
-          if (this.isAndroid()) {
-            this.page = 'android'
-            this.setLink('intent://ti/p/@youbike#Intent;scheme=line;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=jp.naver.line.android;end')
-            return
-          }
-          this.setLink('https://line.me/R/ti/p/@youbike')
-        },
-        isAndroid() {
-          return navigator.userAgent.match(/Android/i)
-        },
-        setLink(link) {
-          const url = new URL('line-yb-shortcut-redirect.html', location)
-          url.searchParams.set('link', link)
-          history.replaceState(null, '', url.href)
-        },
-      },
-    })
+    function isAndroid() {
+      return navigator.userAgent.match(/Android/i)
+    }
+    window.onload = function () {
+      document.getElementById("step").style.display = "block"
+      document.getElementById(isAndroid() ? "android" : "ios").style.display = "block"
+      const url = new URL('line-yb-shortcut-redirect.html', location)
+      history.replaceState(null, '', url.href)
+    }
   </script>
 </body>
 
