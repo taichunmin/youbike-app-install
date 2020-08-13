@@ -107,9 +107,12 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'UA-164685281-3');
-    gtag('event', isAndroid() ? 'android' : 'iOS', {
-      event_category: '把捷徑加入主畫面',
-      event_label: isAndroid() ? 'android' : 'iOS',
+    new Promise(resolve => {
+      gtag('event', isAndroid() ? 'android' : 'iOS', {
+        event_callback: resolve,
+        event_category: '把捷徑加入主畫面',
+        event_label: isAndroid() ? 'android' : 'iOS',
+      })
     })
   </script>
   <div class="container">
