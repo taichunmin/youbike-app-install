@@ -66,6 +66,14 @@
 </style>
 
 <body>
+  <script async src='https://www.googletagmanager.com/gtag/js?id=UA-164685281-3'></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-164685281-3');
+    gtag('event', 'screen_view', { screen_name: '[打開微笑單車LINE]' })
+  </script>
   <div class="d-flex flex-column align-items-center my-4">
     <h2>Hi</h2>
     <img src="https://gcs-youbike2-linebot.taichunmin.idv.tw/theme1/shortcut/hero-open.png?t=2020081111"
@@ -73,7 +81,6 @@
     <a class="btn button" href="line://ti/p/@youbike">打開微笑單車 LINE</a>
   </div>
 
-  <script src='https://www.googletagmanager.com/gtag/js?id=UA-164685281-3'></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js"></script>
   <script>
@@ -84,12 +91,6 @@
       if (isAndroid()) return 'intent://ti/p/@youbike#Intent;scheme=line;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=jp.naver.line.android;end'
       return 'https://line.me/R/ti/p/@youbike'
     }
-    // GA
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'UA-164685281-3');
-    gtag('event', '[打開微笑單車LINE]')
     location.href = getRedirectLink()
   </script>
 </body>
