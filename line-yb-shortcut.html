@@ -126,6 +126,7 @@
     </div>
   </div>
 
+  <script src='https://www.googletagmanager.com/gtag/js?id=UA-164685281-3'></script>
   <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/js/all.min.js"></script>
   <script>
     function isAndroid() {
@@ -137,6 +138,13 @@
       const url = new URL('line-yb-shortcut-redirect.html', location)
       history.replaceState(null, '', url.href)
     }
+
+    // GA
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-164685281-3');
+    gtag('event', isAndroid() ? '[把捷徑加入主畫面][android]' : '[把捷徑加入主畫面][iOS]')
   </script>
 </body>
 
