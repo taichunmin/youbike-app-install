@@ -104,6 +104,9 @@
   <script async src='https://www.googletagmanager.com/gtag/js?id=UA-164685281-3'></script>
   <script>
     window.dataLayer = window.dataLayer || [];
+    function isAndroid() {
+      return navigator.userAgent.match(/Android/i)
+    }
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'UA-164685281-3');
